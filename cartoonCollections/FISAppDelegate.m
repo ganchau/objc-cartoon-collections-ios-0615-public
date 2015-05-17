@@ -37,31 +37,59 @@
 
 - (NSString *)rollCallDwarves:(NSArray *)dwarves
 {
-    return nil;
+    NSString *rollCallString = @"";  // stores the roll call of dwarves
+    NSString *stringToAppend = @"";  // stores the formatted string to append to the roll call
+    for (NSUInteger i=0; i<[dwarves count]; i++) {
+        if (i == 0) {   // if it's the first string, start with 1. "dwarf"
+            stringToAppend = [NSString stringWithFormat:@"%lu. %@", i+1, dwarves[i]];
+        } else {  // else if it's not the first string, start with " | #. 'dwarf'"
+            stringToAppend = [NSString stringWithFormat:@" | %lu. %@", i+1, dwarves[i]];
+        }   // append the formatted string with the current roll call
+        rollCallString = [rollCallString stringByAppendingString:stringToAppend];
+    }
+    return rollCallString;  // return the formatted roll call
 }
 
 - (NSArray *)summonCaptainPlanet:(NSArray *)planteerCalls
 {
-    return nil;
+    NSMutableArray *ForcesWithHeart = [@[] mutableCopy];   // store the CALLS! in mutable array
+    for (NSUInteger i=0; i<[planteerCalls count]; i++) {
+        ForcesWithHeart[i] = [[planteerCalls[i] uppercaseString] stringByAppendingString:@"!"];   // make the calls uppercase with exclamation point.
+    }
+    return [ForcesWithHeart copy];   // return the immutable array of CALLS!
 }
 
 - (NSArray *)longPlaneteerCalls:(NSArray *)planteerCalls
 {
-    return nil;
+    NSMutableArray *longCalls = [@[] mutableCopy];   // store long calls in mutable array
+    for (NSUInteger i=0;  i<[planteerCalls count]; i++) {
+        if ([planteerCalls[i] length] > 4) {    // if the call is greater than 4 characters
+            [longCalls addObject:planteerCalls[i]];    // add the call to the long calls array
+        }
+    }
+    return [longCalls copy];    // return the immutable array of long calls
 }
 
 - (NSString *)findTheCheese:(NSArray *)cheeses
 {
-    return nil;
+    NSArray *cheeseArray = @[@"cheddar", @"gouda", @"cambert"];   // store possible cheeses in an array
+    for (NSUInteger i=0; i<[cheeses count]; i++) {
+        if ([cheeseArray containsObject:cheeses[i]]) {    // if the first parameters is contained in the cheese array
+            return cheeses[i];    // return the first parameter found
+        }
+    }
+    return nil;   // return nil if no cheese found
 }
 
 - (NSArray *)calculateDollarAmountsWithReceipt:(NSArray *)receipt
 {
-    return nil;
+    NSMutableArray *convertedReceiptArray = [@[] mutableCopy];   // store converted receipt in mutable array
+    for (NSUInteger i=0; i<[receipt count]; i++) {
+        // convert receipt to "$#" based on the length of "$", example: $$$ -> $3
+        convertedReceiptArray[i] = [NSString stringWithFormat:@"$%lu", (unsigned long)[receipt[i] length]];
+    }
+    return [convertedReceiptArray copy];  // return immutable array of converted receipt
 }
-
-
-
 
 
 
